@@ -2,18 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/home', function () {
-    return view('home',['title' => 'Home Page']);
+Route::get('/', function () {
+    return view('home', ['title' => 'Home Page']);
 });
 
 Route::get('/about', function () {
-    return view('about', ['title' => 'About']);
+    return view('about', ['name' =>'Yova Andre','title' => 'About']);
 });
 
 Route::get('/blog', function () {
-    return view('Blog',['title' => 'Blog']);
+    return view('blog', ['title' => 'Blog']);
 });
 
 Route::get('/contact', function () {
-    return view('contact',['title' => 'Contact']);
+    return view('contact', ['title' => 'Contact']);
 });
