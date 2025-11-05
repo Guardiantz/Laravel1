@@ -84,8 +84,8 @@
                          alt="" class="size-10 rounded-full outline -outline-offset-1 outline-white/10" />
                  </div>
                  <div class="ml-3">
-                     <div class="text-base/5 font-medium text-white">Tom Cook</div>
-                     <div class="text-sm font-medium text-gray-400">tom@example.com</div>
+                     <div class="text-base/5 font-medium text-white">Yova Andre</div>
+                     <div class="text-sm font-medium text-gray-400">Andre@example.com</div>
                  </div>
                
              </div>
