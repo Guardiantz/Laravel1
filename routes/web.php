@@ -55,6 +55,11 @@ Route::get('/posts/{id}', function ($id) {
     });
     dd($post);
     // dd($post); untuk ngecek apakah data nya masuk atau ga terhubung
+    return view('about', ['name' =>'Yova Andre','title' => 'About']);
+});
+
+Route::get('/blog', function () {
+    return view('blog', ['title' => 'Blog']);
 });
 
 Route::get('/contact', function () {

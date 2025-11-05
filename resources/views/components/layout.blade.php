@@ -15,15 +15,14 @@
 
 <body class="h-full">
 
-    <div class="min-h-full">
+    <div class="">
         <x-navbar></x-navbar>
 
         <x-header>{{ $title }}</x-header>
         <main>
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 text-2xl font-reguler tracking-tight text-white ">
                 <!-- Your content -->
-                {{$slot}}
-
+                {{ $slot }}
             </div>
         </main>
     </div>

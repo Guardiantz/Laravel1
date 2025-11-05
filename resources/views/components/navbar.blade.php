@@ -72,13 +72,10 @@
      <el-disclosure id="mobile-menu" hidden class="block md:hidden">
          <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
              <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-             <x-nav-link href="/" :active="request()->is('/')">Home</x-nav-link>
-             <x-nav-link href="/about" :active="request()->is('about')">About</x-nav-link>
-             <x-nav-link href="/posts" :active="request()->is('posts')">Blog</x-nav-link>
-             <x-nav-link href="/contact" :active="request()->is('contact')">Contact</x-nav-link>
-
-
-
+             <x-nav-link href='/' :active="request()->is('/')">Home</x-nav-link>
+             <x-nav-link href='/about'>About</x-nav-link>
+             <x-nav-link href='/blog'>Blog</x-nav-link>
+             <x-nav-link href='/contact'>contact</x-nav-link>
          </div>
          <div class="border-t border-white/10 pt-4 pb-3">
              <div class="flex items-center px-5">
@@ -90,7 +87,7 @@
                      <div class="text-base/5 font-medium text-white">Tom Cook</div>
                      <div class="text-sm font-medium text-gray-400">tom@example.com</div>
                  </div>
-
+               
              </div>
              <div class="mt-3 space-y-1 px-2">
                  <a href="#"
