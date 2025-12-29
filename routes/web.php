@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Arr;
 use App\Models\Post;
+use App\Models\User;
 
 
 Route::get('/', function () {
@@ -17,11 +17,16 @@ Route::get('/posts', function () {
     return view('posts', ['title' => 'Blog', 'posts' => Post::all()]);
 });
 
-Route::get('/posts/{slug}', function ($slug) {
+//ini menggunakan method binding dengan menggunakan post:slug artinya yg di cari bukan id lagi tapi slug ex judul-artikel-1
+Route::get('/posts/{post:slug}', function (Post $post) {
 
-    $post = Post::all()->firstWhere('slug', $slug);
+    // $post = Post::find($id);
+    //menggunakan method find untuk menemukan query seperti $id atau slug
 
     return view('post', ['title' => 'Single Post', 'post' => $post]);
+});
+Route::get('/authors/{user}', function (User $user) {
+    return view('posts', ['title' => 'Articles by ' . $user->name, 'posts' => $user->posts]);
 });
 
 Route::get('/blog', function () {
