@@ -11,11 +11,24 @@ class Post extends Model //Laravel memetakan class Post ke sebuah Tabel Posts
     use HasFactory;
     //// protected $table = 'blog_posts';
     //bentuk jamak dari class Post menggunakan s dibelakang nya
-    protected $fillable = ['title', 'author', 'slug', 'body'];
+    protected $fillable = [
+        'title',
+        'author',
+        'slug',
+        'body',
+        'author_id',
+        'category_id'
 
-    //berguna untuk memanggil diphp artisan tinker untuk memanggil  $post = App\Models\Post::first() kemudian  $post -> author agar table users ikut terlihat karna tanpa belongsTo table user berisi name tidak dapat dilihat 
+    ];
+
+    //berguna untuk memanggil diphp artisan tinker untuk memanggil  $post = App\Models\Post::first() kemudian  $post -> author agar table users ikut terlihat karna tanpa belongsTo table user berisi name tidak dapat dilihat
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

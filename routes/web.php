@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Category;
 
 
 Route::get('/', function () {
@@ -17,16 +18,21 @@ Route::get('/posts', function () {
     return view('posts', ['title' => 'Blog', 'posts' => Post::all()]);
 });
 
-//ini menggunakan method binding dengan menggunakan post:slug artinya yg di cari bukan id lagi tapi slug ex judul-artikel-1
 Route::get('/posts/{post:slug}', function (Post $post) {
-
-    // $post = Post::find($id);
-    //menggunakan method find untuk menemukan query seperti $id atau slug
-
-    return view('post', ['title' => 'Single Post', 'post' => $post]);
+    return view('post', ['title' => 'Single post', 'post' => $post]);
 });
-Route::get('/authors/{user}', function (User $user) {
-    return view('posts', ['title' => 'Articles by ' . $user->name, 'posts' => $user->posts]);
+
+Route::get('/authors/{user:username}', function (User $user) {
+    return view('posts', [
+        'title' => count($user->posts) . ' Articles by ' . $user->name,
+        'posts' => $user->posts
+    ]);
+});
+Route::get('/categories/{category:slug}', function (Category $category) {
+    return view('posts', [
+        'title' => ' Articles in: ' .  $category->name,
+        'posts' => $category->posts
+    ]);
 });
 
 Route::get('/blog', function () {
@@ -36,3 +42,6 @@ Route::get('/blog', function () {
 Route::get('/contact', function () {
     return view('contact', ['title' => 'Contact']);
 });
+
+// Perintah untuk menjalankan php artisan tinker untuk menampilkan user dan category 
+// App\Models\Post::factory(100)->recycle([Category::factory(3)->create(), User::factory(5)->create()])->create();
