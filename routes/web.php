@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Arr;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Category;
 
 
 Route::get('/', function () {
@@ -13,59 +15,39 @@ Route::get('/about', function () {
 });
 
 Route::get('/posts', function () {
-    return view('posts', ['title' => 'Blog', 'posts' => [
-        [
-
-            'id' => 1,
-            'slug' => 'Judul-Artikel-1',
-            'title' => 'Judul Artikel 1',
-            'author' => 'Yova Andre',
-            'body' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus ea quaerat. Commodi minima cum adipisci fuga. Optio repellat exercitationem repellendus rem esse obcaecati.'
-        ],
-        [
-            'id' => 2,
-            'slug' => 'Judul-Artikel-2',
-            'title' => 'Judul Artikel 2',
-            'author' => 'Andre yova',
-            'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem culpa aliquam adipisci, omnis vero quidem quas, hic, quisquam et nesciunt ab? Nihil ab ea dicta velit sit est iste illum'
-        ]
-    ]]);
+    //menggunakan N+1 untuk mengurangi querry
+    // $posts = Post::with(['author', 'category'])->latest()->get();
+    $posts = Post::latest()->get();
+    return view('posts', ['title' => 'Blog', 'posts' => $posts]);
 });
 
-Route::get('/posts/{slug}', function ($slug) {
-    // dd($id); untuk ngecek apakah data nya masuk atau ga terhubung
-    $posts = [
-        [
+Route::get('/posts/{post:slug}', function (Post $post) {
+    return view('post', ['title' => 'Single post', 'post' => $post]);
+});
 
-            'id' => 1,
-            'slug' => 'Judul-Artikel-1',
-            'title' => 'Judul Artikel 1',
-            'author' => 'Yova Andre',
-            'body' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus ea quaerat. Commodi minima cum adipisci fuga. Optio repellat exercitationem repellendus rem esse obcaecati.'
-        ],
-        [
-            'id' => 2,
-            'slug' => 'Judul-Artikel-2',
-            'title' => 'Judul Artikel 2',
-            'author' => 'Andre yova',
-            'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem culpa aliquam adipisci, omnis vero quidem quas, hic, quisquam et nesciunt ab? Nihil ab ea dicta velit sit est iste illum'
-        ]
-    ];
-    $post = Arr::first($posts, function ($post) use ($slug) {
-        return $post['slug'] == $slug;
+Route::get('/authors/{user:username}', function (User $user) {
+    // $posts = $user->posts->load('category', 'author');
 
-        //artinya di callback fungsinya dengan mencari elemen $post. jika $post id itu sama dengan id 
+    return view('posts', [
+        'title' => count($user->posts) . ' Articles by ' . $user->name,
+        'posts' => $user->posts
+    ]);
+
+    Route::get('/categories/{category:slug}', function (Category $category) {
+        return view('posts', [
+            'title' => 'Articles in: ' . $category->name,
+            'posts' => $category->posts
+        ]);
     });
-    
-    // dd($post); untuk ngecek apakah data nya masuk atau ga terhubung
-    //kirim view yang mengirimkan datanya title yang diisi dengan post dengan var post
-    return view ('post', ['title' => 'Single Post','post' => $post]);
-});
+    Route::get('/blog', function () {
+        return view('blog', ['title' => 'Blog']);
+    });
 
-Route::get('/blog', function () {
-    return view('blog', ['title' => 'Blog']);
-});
+    Route::get('/contact', function () {
+        return view('contact', ['title' => 'Contact']);
+    });
 
-Route::get('/contact', function () {
-    return view('contact', ['title' => 'Contact']);
+    // Perintah untuk menjalankan php artisan tinker untuk menampilkan user dan category 
+    // App\Models\Post::factory(100)->recycle([Category::factory(3)->create(), User::factory(5)->create()])->create();
+
 });

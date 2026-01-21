@@ -7,10 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>home</title>
     @vite('resources/css/app.css')
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     {{-- <html class="bg-white dark:bg-gray-950 scheme-light dark:scheme-dark"> --}}
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
 </head>
 
 <body class="h-full">
