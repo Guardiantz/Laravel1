@@ -20,6 +20,8 @@ class Post extends Model //Laravel memetakan class Post ke sebuah Tabel Posts
         'category_id'
 
     ];
+    //berfungsi untuk mengurangi pemborosan querry agar tampilan pada website tidak lama 
+    protected $with = ['author', 'category'];
 
     //berguna untuk memanggil diphp artisan tinker untuk memanggil  $post = App\Models\Post::first() kemudian  $post -> author agar table users ikut terlihat karna tanpa belongsTo table user berisi name tidak dapat dilihat
     public function author(): BelongsTo
